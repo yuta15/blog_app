@@ -6,6 +6,7 @@ from flask import request
 from flask import session
 from flask import url_for
 from flask import jsonify
+import bcrypt
 from datetime import datetime
 
 from blog_app.db.database import DB_session
@@ -27,7 +28,7 @@ def register():
     try:
         new_user = User(
             user_name = request.form['username'],
-            user_password = request.form['password'],
+            user_password = bcrypt.hashpw(password=request.form['password'].encode('utf-8'), salt=bcrypt.gensalt()),
             user_email = request.form['email'],
             user_created_at = now,
             user_updated_at = now,
