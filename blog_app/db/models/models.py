@@ -14,6 +14,9 @@ from blog_app.db.database import Base
 
 
 class User(Base):
+    """
+    ログイン管理用テーブル
+    """
     __tablename__ = "user_account"
     user_id: Mapped[int] = mapped_column(primary_key=True)
     user_name: Mapped[str] = mapped_column(String(length=30))
@@ -22,11 +25,14 @@ class User(Base):
     user_created_at: Mapped[datetime] = mapped_column(DateTime)
     user_updated_at: Mapped[datetime] = mapped_column(DateTime)
     is_admin: Mapped[bool] = mapped_column(Boolean, default=False)
+    
+    posts: Mapped[List['Post']] = relationship(back_populates='user')
+    comments: Mapped[List['Comment']] = relationship(back_populates='user')
 
     def __repr__(self) -> str:
         return f"""
             User(
-                id:{self.user_id!r}, l
+                id:{self.user_id!r},
                 user_name:{self.user_name!r}, 
                 user_email:{self.user_email}, 
                 created_at:{self.user_created_at}, 
@@ -37,6 +43,9 @@ class User(Base):
 
 
 class Post(Base):
+    """
+    ブログ投稿用テーブル。
+    """
     __tablename__ = "post"
     post_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     post_title: Mapped[str] = mapped_column(String(length=150))
@@ -44,9 +53,10 @@ class Post(Base):
     post_created_at: Mapped[datetime] = mapped_column(DateTime)
     post_updated_at: Mapped[datetime] = mapped_column(DateTime)
     post_status: Mapped[bool] = mapped_column(Boolean)
+    user_id: Mapped[int] = mapped_column(ForeignKey('user_account.user_id'))
     
-    user_id: Mapped[int] = mapped_column(Integer, ForeignKey('user_account.user_id'))
-    user: Mapped[User] = relationship(back_populates="Post")
+    user: Mapped[User] = relationship(back_populates="posts")
+    comments: Mapped[List['Comment']] = relationship(back_populates='post')
 
     def __repr__(self) -> str:
         return f"""
@@ -62,16 +72,19 @@ class Post(Base):
 
 
 class Comment(Base):
+    """
+    コメント用テーブル。
+    """
     __tablename__ = "comment"
     comment_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     comment_content: Mapped[str] = mapped_column(String(length=300))
     comment_created_at: Mapped[datetime] = mapped_column(DateTime)
     
     post_id: Mapped[int] = mapped_column(Integer, ForeignKey('post.post_id'))
-    post: Mapped[Post] = relationship(back_populates="Comment")
+    post: Mapped[Post] = relationship(back_populates="comments")
     
     user_id: Mapped[User] = mapped_column(Integer, ForeignKey('user_account.user_id'))
-    user: Mapped[User] = relationship(back_populates="User")
+    user: Mapped[User] = relationship(back_populates="comments")
 
     def __repr__(self) -> str:
         return f"""

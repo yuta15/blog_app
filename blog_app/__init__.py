@@ -15,9 +15,8 @@ def create_app():
         from blog_app.db import database
         database.init_app(app)
     # auth function
-    
     from . import auth
-    auth.register
+    app.register_blueprint(auth.auth)
     # blog function
     # setting function
     

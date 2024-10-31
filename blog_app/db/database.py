@@ -9,14 +9,12 @@ import click
 
 
 engin = create_engine(current_app.config['DATABASE_URI'])
-DB_session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engin))
+DB_session = sessionmaker(bind=engin, )
 
 
 class Base(DeclarativeBase):
     """Baseモデルの定義"""
     pass
-
-
 
 
 def shutdown_session():
