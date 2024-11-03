@@ -19,7 +19,7 @@ class User(Base):
     """
     __tablename__ = "user_account"
     user_id: Mapped[int] = mapped_column(primary_key=True)
-    user_name: Mapped[str] = mapped_column(String(length=30))
+    user_name: Mapped[str] = mapped_column(String(length=30), unique=True)
     user_password: Mapped[str] = mapped_column(String(length=100))
     user_email: Mapped[str] = mapped_column(String(length=100))
     user_created_at: Mapped[datetime] = mapped_column(DateTime)
