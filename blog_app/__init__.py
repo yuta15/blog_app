@@ -18,6 +18,8 @@ def create_app():
     from . import auth
     app.register_blueprint(auth.auth)
     # blog function
+    from . import blog
+    app.register_blueprint(blog.blog)
     # setting function
     
     

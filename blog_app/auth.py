@@ -66,14 +66,14 @@ def register():
     """
     now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     new_user = User(
-        user_name = request.form['username'],
-        user_password = bcrypt.hashpw(password=request.form['password'].encode('utf-8'), salt=bcrypt.gensalt()),
-        user_email = request.form['email'],
+        user_name = request.form.get(key='username'),
+        user_password = bcrypt.hashpw(password=request.form.get(key='password').encode('utf-8'), salt=bcrypt.gensalt()),
+        user_email = request.form.get(key='email'),
         user_created_at = now,
         user_updated_at = now,
-        is_admin = False if 'is_admin' not in request.form else True
+        is_admin = request.form.get(key='is_admin', default=False)
     )
-    exist_user = get_user(request.form['username'])
+    exist_user = get_user(request.form.get('username'))
     if exist_user == None:
         return jsonify({"message": "DB Error"}), 500
     elif check_exist_user(exist_user):
@@ -95,8 +95,8 @@ def login():
     """
     login用関数。入力データとDB内のデータを照合を行う。
     """
-    username = request.form['username']
-    password = request.form['password']
+    username = request.form.get(key='username')
+    password = request.form.get(key='password')
     user = get_user(username=username)
     user_auth_result = user_authentication(user = user, form_password=password)
     if user_auth_result:

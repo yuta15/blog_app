@@ -7,7 +7,6 @@ from flask import g
 
 import click
 
-
 engin = create_engine(current_app.config['DATABASE_URI'])
 DB_session = sessionmaker(bind=engin, )
 

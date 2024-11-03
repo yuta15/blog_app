@@ -49,7 +49,7 @@ class Post(Base):
     __tablename__ = "post"
     post_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     post_title: Mapped[str] = mapped_column(String(length=150))
-    post_content: Mapped[str] = mapped_column(String(length=10))
+    post_content_path: Mapped[str] = mapped_column(String(length=500))
     post_created_at: Mapped[datetime] = mapped_column(DateTime)
     post_updated_at: Mapped[datetime] = mapped_column(DateTime)
     post_status: Mapped[bool] = mapped_column(Boolean)
