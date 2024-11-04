@@ -1,0 +1,55 @@
+services:
+  flask:
+    container_name: flask_app
+    hostname: flask
+    build: 
+      context: ../
+      dockerfile: docker/flask/Dockerfile
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+      - test
+    env_file:
+      - ./flask/.env
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - type: bind
+        source: ../blog_app
+        target: /src/blog_app
+      - type: bind
+        source: ../instance
+        target: /src/instance
+      - type: bind
+        source: ../test_blog_app
+        target: /src/test_blog_app
+    
+  db:
+    container_name: dev_db
+    image: mysql:latest
+    hostname: dev
+    restart: always
+    ports:
+      - 3306:3306
+    env_file:
+      - db/.env
+    networks:
+      - backend
+    
+  test:
+    container_name: test_db
+    image: mysql:latest
+    hostname: test
+    restart: always
+    ports:
+      - 33060:3306
+    env_file:
+      - db/.env
+    networks:
+      - backend
+
+networks:
+  frontend:
+  backend:
