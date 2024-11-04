@@ -1,18 +1,18 @@
 import pytest
+import os
 
 from blog_app import create_app
-from blog_app.db import database
-
 
 
 @pytest.fixture()
 def app():
-    app = create_app()
-    app.config.from_pyfile('test_config.py', silent=False)
+    app = create_app(Testing=True)
     
     # set up code
     with app.app_context():
-        database.init_app(app=app)
+        from blog_app.db import database
+        database.init_app(app)
+        print(app.config)
     
     yield app
     # clean up 
