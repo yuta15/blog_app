@@ -10,19 +10,18 @@ Markdownで記述したブログを投稿するためのAPIを提供するWEBア
 
 ## インストール方法
 ### 1. リポジトリをクローン
-### 2. 依存関係をインストール
-```
-pip install -r requirements.txt
-```
-### 3. 環境変数の設定
+
+### 2. Docker・環境変数の設定
 環境変数の詳細については[こちら](docker/README.md)を参照
 
 ### 3. アプリケーションを実行
+以下コマンドをFlaskコンテナ内で実行
 ```
 python3 -m blog_app.app
 ```
 
 ### 4. DBの初期化
+
 ```
 flask init-db
 ```
