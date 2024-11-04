@@ -1,3 +1,9 @@
+"""
+ブログ管理用機能。
+ブログの投稿、保存、修正、閲覧等のブログに関する機能は本ファイルに記述する。
+なお、機能拡張に伴いファイルサイズが大きくなる場合には適宜拡張予定。
+"""
+
 from datetime import datetime
 from flask import Blueprint
 from flask import request

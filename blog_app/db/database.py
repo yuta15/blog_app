@@ -1,3 +1,10 @@
+"""
+DB操作に関する部分を記述するファイル。
+engin定義、sessionの定義等はこのファイルで実行する為、各種機能はこのファイルをインポートし、
+DBの操作を実行する。
+なお、flaskコマンドにて使用する初期化用のコマンド定義についてもこのファイルで定義し、Factoryで読み込むことで使用する。
+"""
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker

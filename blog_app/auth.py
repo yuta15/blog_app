@@ -1,3 +1,9 @@
+"""
+認証機能用ファイル。
+ログイン、ログアウト、セッション管理機能は本ファイルに記述する。
+"""
+
+
 import bcrypt
 from datetime import datetime
 from flask import Blueprint

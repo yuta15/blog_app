@@ -16,10 +16,10 @@ import os
 import secrets
 import pymysql
 
-
 # 環境の設定
 FLASK_ENV = os.environ.get('FLASK_ENV')
 APPLICATION_ROOT  = os.environ.get('FLASK_ROOT_DIR')
+FLASK_APP = os.environ.get('FLASK_APP')
 
 # 環境差分設定
 if FLASK_ENV == 'Dev':
@@ -28,14 +28,12 @@ if FLASK_ENV == 'Dev':
     UPLOAD_FOLDER = os.path.join(APPLICATION_ROOT, "uploads")
     DB_HOSTNAME = os.environ.get('DB_HOSTNAME')
     
-    
 elif FLASK_ENV == 'Test':
     # テスト環境用の設定は以下へ記述
     TESTING = True
     DB_PORT = os.environ.get('TEST_DB_PORT')
     DB_HOSTNAME = os.environ.get('TEST_DB_HOSTNAME')
     UPLOAD_FOLDER = os.path.join(APPLICATION_ROOT, 'test_uploads')
-
 
 # DB設定
 DB_USERNAME = os.environ.get('DB_USERNAME')

@@ -1,3 +1,9 @@
+"""
+DBのモデルを定義するファイル。
+必要に応じて適宜モデルを作成する。
+なお、定義の際、MySQLを使用しているため、Str型のカラムはlengthの指定が必須となる。
+"""
+
 from typing import List
 from typing import Optional
 from datetime import datetime

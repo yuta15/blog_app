@@ -1,3 +1,10 @@
+"""
+FlaskのFactoryファイル。
+テスト時もこのcreate_app()を呼び出すことでアプリケーションを実行する。
+各種機能はBlueprintにて分割するため、新規機能追加時には本ファイルへ記述する。
+テスト時には、create_app(Testing=True)とすることでapp.config内の設定がテスト用の設定となる。
+"""
+
 import os
 from flask import Flask
 
