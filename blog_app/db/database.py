@@ -14,13 +14,22 @@ from flask import g
 
 import click
 
-engin = create_engine(current_app.config['DATABASE_URI'])
-DB_session = sessionmaker(bind=engin, )
+engin = None
+DB_session = None
 
 
 class Base(DeclarativeBase):
     """Baseモデルの定義"""
     pass
+
+
+def init_engin(database_uri):
+    """
+    enginの初期化
+    """
+    global engin, DB_session
+    engin = create_engine(database_uri)
+    DB_session = sessionmaker(bind=engin)
 
 
 def create_table():
@@ -32,7 +41,7 @@ def create_table():
     from blog_app.db.models.models import Comment
     
     Base.metadata.create_all(bind=engin)
-    click.echo('initialized db')
+    click.echo('\nInitialized db')
 
 
 def drop_table():
@@ -44,12 +53,16 @@ def drop_table():
     from blog_app.db.models.models import User
     from blog_app.db.models.models import Post
     from blog_app.db.models.models import Comment
+    
     Base.metadata.drop_all(bind=engin)
-    click.echo('dropped all tables')
+    click.echo('\nDropped all tables')
 
 
 def init_app(app):
     """DB初期化用関数.Flaskコマンドから実行可能"""
+    
+    init_engin(app.config['DATABASE_URI'])
+    
     @app.cli.command('init-db')
     def init_db_command():
         create_table()
