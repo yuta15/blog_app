@@ -6,8 +6,10 @@ COPY ../../requirements.txt /src/requirements.txt
 RUN apt-get update && apt-get upgrade -y && \
     pip install --upgrade pip && \
     pip install -r requirements.txt
+EXPOSE 5000
+EXPOSE 5001
 
 COPY ../../blog_app /src/blog_app
 COPY ../../test_blog_app /src/test_blog_app
 COPY ../../instance /src/instance
-CMD ["python3", "-m", "blog_app.app"]
+CMD ["flask", "run", "--reload","--host=172.19.0.10" ,"--port=5001"]
