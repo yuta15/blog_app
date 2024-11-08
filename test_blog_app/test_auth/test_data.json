@@ -1,0 +1,25 @@
+{
+    "test_auth_register_return_200":[
+        {"username": "200_user1", "password": "adminuser", "email": "adminuser@gmail.com", "is_admin": "True"},
+        {"username": "200_user2", "password": "12345678", "email": "adminuser@gmail.com", "is_admin": "True"},
+        {"username": "200", "password": "100!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "email": "adminuser@gmail.com", "is_admin": "True"},
+        {"username": "200_30!!!!!!!!!!!!!!!!!!!!!!!!", "password": "adminuser", "email": "adminuser@gmail.com", "is_admin": "True"}
+    ],
+    "test_auth_register_return_400":[
+        {"username": null, "password": "adminuser", "email": "adminuser@gmail.com"},
+        {"username": "12", "password": "adminuser", "email": "adminuser@gmail.com"},
+        {"username": "1111111111111111111111111111111", "password": "adminuser", "email": "adminuser@gmail.com"},
+        {"username": "400_user1", "password": null, "email": "adminuser@gmail.com"},
+        {"username": "400_user2", "password": "passwor", "email": "adminuser@gmail.com"},
+        {"username": "400_user3", "password": "1234567", "email": "adminuser@gmail.com"},
+        {"username": "400_user4", "password": "password", "email": null},
+        {"username": "400_user5", "password": "password", "email": 1234},
+        {"username": "400_user6", "password": "password", "email": "adminusergmail.com"}
+    ],
+    "test_auth_register_return_409":{"username": "409_user1", "password": "adminuser", "email": "adminuser@gmail.com", "is_admin": null},
+    "test_auth_register_return_415":{"username": "415_user1", "password": "adminuser", "email": "adminuser@gmail.com", "is_admin": "True"},
+    "test_auth_login_return_200": [
+        {"username": "200_user1", "password": "password", "email": "adminuser@gmail.com"},
+        {"username": "200_user1", "password": "password"}
+    ]
+}

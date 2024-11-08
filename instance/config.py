@@ -41,5 +41,5 @@ DB_PASSWORD = os.environ.get('DB_PASSWORD')
 # Flask
 ALLOWED_EXTENSIONS = {'.md'}
 DEBUG = True
-FLASK_SECRET_KEY = secrets.token_hex(10)
+SECRET_KEY = secrets.token_hex(10)
 DATABASE_URI = f"mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOSTNAME}:{DB_PORT}/blog_app"

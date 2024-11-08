@@ -29,3 +29,25 @@ def client(app):
 @pytest.fixture
 def runner(app):
     return app.test_cli_runner()
+
+
+@pytest.fixture(scope='module')
+def create_user():
+    def _create_user(username, password, email):
+        from blog_app.db import database
+        from blog_app.db.models.models import User
+        from datetime import datetime
+
+        now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        setup_user = User(
+            user_name = username,
+            user_password = password,
+            user_email = email,
+            user_created_at = now,
+            user_updated_at = now,
+        )
+        with database.DB_session() as db_session:
+            db_session.add(setup_user)
+            db_session.commit()
+            
+    return _create_user
